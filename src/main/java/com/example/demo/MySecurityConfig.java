@@ -14,13 +14,15 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable(); // csrはは無効 
 
         // 認証の設定
-        // ログインが画ははspriのデフォルトを使用。
-        // デフォルののログイが画面に認ががかからない
         http.authorizeRequests()
+            .antMatchers("/login").permitAll() // login
             .anyRequest().authenticated();
 
-        // ログインが画面
+        // ログイン画面
         http.formLogin() // デフォルののログイが画をを利用
+            .loginPage("/login")
+            .usernameParameter("user")
+            .passwordParameter("password")
             .defaultSuccessUrl("/sample",true);//ログイン後の遷移先
     }
 }
